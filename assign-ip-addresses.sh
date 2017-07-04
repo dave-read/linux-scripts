@@ -20,6 +20,11 @@
 # For testing only.  Final deployment should use platform specific 
 # network configuration files
 
+if ! [ $(id -u) = 0 ]; then
+   echo "Must be run as root"
+   exit 1
+fi
+
 VM_IP_PREFIX=10.0.1
 NICS_PER_VM=4
 IP_PER_NIC=25
