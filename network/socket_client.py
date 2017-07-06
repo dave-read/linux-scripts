@@ -46,7 +46,7 @@ while True:
     #instanceInvokeCounts[instance] = instanceInvokeCounts.get(instance, 0) + 1
     if total_count % 1000 == 0:
       elapsed_time=time.time()-start_time
-      print "client_id:"+PID+" iteration count:"+str(iteration_count)+" last data size:"+str(len(data))+" elapsed seconds:"+str(elapsed_time)+" req/second:"+str(iteration_count/elapsed_time)
+      print "client_id:"+PID+" iteration count:"+str(iteration_count)+" last data size:"+str(len(data))+" elapsed seconds:"+str(round(elapsed_time,2))+" req/second:"+str(round(iteration_count/elapsed_time,2))
       sys.stdout.flush()
       #print "last result size:"+str(len(data))+" data:"+str(data)
       #x=numpy.bincount(instanceInvokeCounts.values())
