@@ -6,7 +6,7 @@ IP_COUNT=100
 for((i=1;i<=${IP_COUNT};++i));do
   IP=${IP_PREFIX}.${i}
   echo "starting for IP $IP"
-  python ./socket_server.py $IP 5000 &
+  ./socket_server $IP 5000 &
 done
 
 echo "waiting ..."
