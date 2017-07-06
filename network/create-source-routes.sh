@@ -26,6 +26,18 @@
 # ip rule add iif eth1 table 1
 # ip rule add from 10.0.1.3 table 1
 # ip rule add from 10.0.1.4 table 1
+#
+# Get list of network interfaces
+# ip link show | grep eth[0-9] | cut -d':' -f2
+# ls /sys/class/net/
+# 
+# ip addr show dev eth1 | grep "secondary"
+# ip addr show dev eth1 |  awk '/secondary/ {print $2 "," $8}'
+# parse results 
+#   array = ( `myBashFuntion param1 param2` )
+#   or
+#   read a b c <<<$(echo 1 2 3) ; echo "$a|$b|$c"
+
 
 if ! [ $(id -u) = 0 ]; then
    echo "Must be run as root"
