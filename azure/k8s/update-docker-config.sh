@@ -17,9 +17,10 @@ if [ ! -r "$FILE_TO_COPY" ]; then
 fi
 
 # copy the new file to temp file on target
-scp -l ${SSH_USER} ${FILE_TO_COPY} $TMP_FILE
+scp -l ${SSH_USER} ${FILE_TO_COPY} ${1}:${TMP_FILE}
 if [ $? -ne 0 ];then
    echo "error copying the new file to $TMP_FILE"
+   exit 1
 fi
 
 # back,copy, then restart kubelet
