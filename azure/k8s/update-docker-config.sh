@@ -2,6 +2,8 @@
 
 FILE_TO_COPY="daemon.json"
 FILE_TO_UPDATE="/etc/docker/$FILE_TO_UPDATE"
+TMP_FILE="/tmp/$FILE_TO_COPY"
+
 SSH_USER=azadmin
 
 if [ -z "$1" ];then
@@ -14,23 +16,15 @@ if [ ! -r "$FILE_TO_COPY" ]; then
    exit 1
 fi
 
-#backup the current file
-echo "backing up $FILE_TO_UPDATE ..."
-scp -l ${SSH_USER} ${1}:${FILE_TO_COPY} ${1}:${FILE_TO_COPY}.bak
+# copy the new file to temp file on target
+scp -l ${SSH_USER} ${FILE_TO_COPY} $TMP_FILE
 if [ $? -ne 0 ];then
-   echo "error backing up ${FILE_TO_UPDATE}
+   echo "error copying the new file to $TMP_FILE"
 fi
 
-echo "copying update ..."
-#copy the new file
-scp -l ${SSH_USER} ${FILE_TO_COPY} ${1:$FILE_TO_UPDATE 
-if [ $? -ne 0 ];then
-   echo "error copying the new file ${FILE_TO_UPDATE}
-fi
-
-echo "restarting kubelet ..."
-# restart kublet
-ssh -l $SSH_USER $1 "sudo service restart kubelet"
+# back,copy, then restart kubelet
+NOW = $(date -u "+%Y.%m.%d-%H.%M.%S")
+ssh -l $SSH_USER $1 "sudo cp $FILE_TO_UPDATE $FILE_TO_UPDATE.${NOW}.bak; sudo cp $TMP_FILE $FILE_TO_UPDATE; sudo systemctl restart kubelet" 
 
 echo done"
 
