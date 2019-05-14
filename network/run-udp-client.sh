@@ -1,0 +1,3 @@
+  UDP_HOST=40.69.156.43
+  UDP_PORT=49777
+  ./udp_client $UDP_HOST $UDP_PORT
