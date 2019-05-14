@@ -32,7 +32,7 @@ node=os.getenv('MY_NODE_NAME')
 pod=os.getenv('MY_POD_NAME')
 podIP=os.getenv('MY_POD_IP')
 
-logPrefix="node="+node+ " pod="+pod+ " podIP="+podIP
+logPrefix="node="+str(node)+ " pod="+str(pod)+ " podIP="+str(podIP)
 
 print logPrefix+" udp_server host port:"+str(HOST_PORT)
 
