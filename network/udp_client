@@ -23,11 +23,11 @@ if  len(sys.argv) != 3:
     exit(1)
 # Create a UDP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+name=sock.getsockname()
 
 HOST = sys.argv[1]
 PORT = int(sys.argv[2])
 HOST_PORT=HOST+","+str(PORT)
-
 server_address = (HOST, PORT)
 
 counter=0
@@ -36,7 +36,7 @@ while True:
     try:
         # Send data
         print "count:"+str(counter)+"\t"
-        message="udp message client socket:"+str(sock)+" count:"+str(counter)
+        message="client-message-count="+str(counter)
 	print "message:"+message
         sent = sock.sendto(message, server_address)
         print "send result:"+str(sent)
