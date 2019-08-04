@@ -1,0 +1,36 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: socket-server 
+  labels:
+    name: socket-server
+    app: socket-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: socket-server
+    spec:
+      containers:
+        - name: socket-server
+          image: dev4dar/socket-server:latest
+          env:
+          - name: PYTHONUNBUFFERED
+            value: "0"
+          - name: MY_NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: MY_POD_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: metadata.name
+          - name: MY_POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP                      
+          command: ["/app/socket_server"]
+          args: ["0.0.0.0","9000"]           
+          ports:
+          - containerPort: 9000 
